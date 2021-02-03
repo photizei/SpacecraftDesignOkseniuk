@@ -4,8 +4,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const char* ssid = "<hidden>";               // your network SSID (name)
-const char* pass = "<hidden>" ;             // your network password
+const char* ssid = "Copernicus Hotspot";               // your network SSID (name)
+const char* pass = "heliocentric" ;             // your network password
 char servername[]="celestrak.com";           // Celestrak Server
 int wifi_attempt_counter = 1;
 
@@ -22,7 +22,7 @@ void setup() {
   Wire.pins(2, 14);
   #endif
   Wire.begin();
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   OD01.begin();  // initialize OLED
   OD01.clear();
