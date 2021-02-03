@@ -1,7 +1,3 @@
-// Code integrated by Kevin Okseniuk for AA236A
-// Significant portions of the code were developed out of examples in Xinabox tutorials.
-// see https://github.com/xinabox/ for more details.
-
 #include <xCore.h>
 #include <xSI01.h>
 #include <xSN01.h>
@@ -85,6 +81,7 @@ void pollGPS() {
   String gpstime = SN01.getTime();
   long latitude = SN01.getLatitude();
   long longitude = SN01.getLongitude();
+  int numSats = SN01.getSatelitesConnected();
 
   // Print values
   Serial.print("GPS Time: ");
@@ -95,6 +92,8 @@ void pollGPS() {
   Serial.println(latitude);
   Serial.print("GPS longitude: ");
   Serial.println(longitude);
+  Serial.print("Satellites connected: ");
+  Serial.println(numSats);
 
   Serial.println("-----End SN01 Poll cycle -----");
 }
@@ -103,6 +102,8 @@ void pollLux() {
   // Sample sensor
   SL01.poll();
   Serial.println("----- Start SL01 Poll cycle -----");
+  uint8_t chipversion = SL01.checkVersion();
+  Serial.print("Chip version: "); Serial.println(chipversion);
 
   // Light
   float lux = SL01.getLUX();
@@ -110,17 +111,18 @@ void pollLux() {
   Serial.print(lux);
   Serial.println(" LUX");
 
-  // UVA
-  float uva = SL01.getUVA();
-  Serial.print("UVA Intensity: ");
-  Serial.print(uva);
-  Serial.println(" uW/m^2");
-
-  // UVB
-  float uvb = SL01.getUVB();
-  Serial.print("UVB Intensity: ");
-  Serial.print(uvb);
-  Serial.println(" uW/m^2");
+// NOTE: chip version 2 doesn't have UVA/B sensors!
+  // // UVA
+  // float uva = SL01.getUVA();
+  // Serial.print("UVA Intensity: ");
+  // Serial.print(uva);
+  // Serial.println(" uW/m^2");
+  //
+  // // UVB
+  // float uvb = SL01.getUVB();
+  // Serial.print("UVB Intensity: ");
+  // Serial.print(uvb);
+  // Serial.println(" uW/m^2");
 
   // UVIndex
   float uvindex = SL01.getUVIndex();
