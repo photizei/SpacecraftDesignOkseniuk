@@ -23,7 +23,7 @@ TLE.BSTAR = ['.' firstline{7}];
 % Line 2
 secondline = split(fgets(TLE_file));
 TLE.inclination = secondline{3};
-TLE.RAAN = secondline{4}; 
+TLE.RAAN = secondline{4};
 TLE.eccentricity = ['.' secondline{5}];
 TLE.arg_of_perigee = secondline{6};
 TLE.mean_anomaly = secondline{7};
@@ -43,7 +43,7 @@ a = (mu/(n_km_sec^2))^(1/3);
 nu = rad2deg(mean2true(str2double(TLE.mean_anomaly),str2double(TLE.eccentricity), 1e-10));
 
 %% Convert to ECI
-[rvec_ECI, vvec_ECI] = oe2eci(a, e, i, Om, w, nu)
+[rvec_ECI, vvec_ECI] = oe2eci(a, e, i, Om, w, nu);
 
 %% Auxiliary Functions
 % Note: all this functions were written by Kevin Okseniuk for AA279A,
@@ -52,7 +52,7 @@ function [rvec_ECI, vvec_ECI] = oe2eci(a, e, i, Om, w, nu)
     % Function to transform from orbital elements to Earth-Centered Inertial
     % frame
     % Coded for AA279A by Kevin Okseniuk
- 
+
     %% Inputs
     % a - semimajor axis, m
     % e - eccentricty
@@ -62,7 +62,7 @@ function [rvec_ECI, vvec_ECI] = oe2eci(a, e, i, Om, w, nu)
     nu = deg2rad(nu); % nu - true anomaly, input in  deg
     % [TO BE IMPLEMENTED] UnitsSettings: .distance : 'km' or 'm' or 'DU'
     % .angles : 'rad' or 'deg'
- 
+
     %% Constants
     AU = 1.49597870700E11; %m
     ME = 5.9742E24; % kg
@@ -70,31 +70,31 @@ function [rvec_ECI, vvec_ECI] = oe2eci(a, e, i, Om, w, nu)
     global G; G = 6.67408E-11; % m3 kg-1 s-2
     aE = 1 * AU;
     mu = G * ME;
- 
+
     % Define general parameters
     rp = a * (1 - e); ra = a * (1 + e);
     E = - mu / (2 * a);
     h = sqrt(((e ^ 2) - 1) * (mu ^ 2) / (2 * E));
     p = h ^ 2 / mu;
- 
+
     %Define vector in perifocal coordinates, PQR
     rmag = p / (1 + e * cos(nu));
     rvec_pf = rmag * [cos(nu), sin(nu), 0]';
     vvec_pf = (mu / h) * [- sin(nu), (e + cos(nu)), 0]';
- 
+
     % Compute rotation matrices
     R3w = R3rot(w);
     R1i = R1rot(i);
     R3Om = R3rot(Om);
- 
+
     %% Rotation cases
     inclined = i > 1.001 * eps;
     circular = e < 1.001 * eps;
- 
+
     if i < 0 || e < 0
         error('bad inclination and/or eccentricity!')
     end
- 
+
     switch inclined
         case true
             switch circular
@@ -123,7 +123,7 @@ function [rvec_ECI, vvec_ECI] = oe2eci(a, e, i, Om, w, nu)
       R3 = [cos(om), sin(om), 0; ...
        - sin(om), cos(om), 0; ...
       0, 0, 1];
-   
+
       % Vrot = R*V;
   end
 
@@ -132,10 +132,10 @@ function [rvec_ECI, vvec_ECI] = oe2eci(a, e, i, Om, w, nu)
       R1 = [1, 0, 0; ...
       0, cos(om), sin(om); ...
       0, - sin(om), cos(om)];
-   
+
       % Vrot = R*V;
   end
-  
+
   function f = mean2true(M, e, tol)
 % mean2true solves Kepler's equation for true anomaly
 %
@@ -182,16 +182,16 @@ else
     % Set up the problem based on an initial guess
     E0 = M;
     d = -(E0 - e*sin(E0) - M)/(1 - e*cos(E0));
-    
+
     % Loop until the solution converges
     while abs(d) > tol
         E1 = E0 + d;
-        
+
         d = -(E1 - e*sin(E1) - M)/(1 - e*cos(E1));
-        
+
         E0 = E1;
     end
-    
+
     E = E0;
 end
 
