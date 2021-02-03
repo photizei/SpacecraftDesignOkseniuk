@@ -1,2 +1,6 @@
 
 *.asv
+TLEreader/TLEreader.ino.hex
+TLEreader/TLEreader.ino.elf
+TLEreader/TLEreader.ino.eep
+TLEreader/TLEreader.ino.bin
