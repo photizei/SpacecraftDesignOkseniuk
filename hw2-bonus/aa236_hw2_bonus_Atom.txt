@@ -1,0 +1,37 @@
+Polling SI01...
+----- Start SI01 Poll cycle -----
+
+G: 4.46, 2.97, 1.23
+A: -0.03, 0.01, 1.03
+M: 0.08, 0.05, -0.59
+Roll: 0.62
+
+Pitch :-1.82
+GForce :1.03
+-----End SI01 Poll cycle -----
+Polling SW01...
+
+----- Start SW01 Poll cycle -----
+Pressure: 102035.20 Pa
+Altitude: -58.79 m
+Temperature: 22.19 C
+Temperature: 71.94 F
+
+Humidity: 31.75 %
+-----End SW01 Poll cycle -----
+Polling SL01...
+----- Start SL01 Poll cycle -----
+Ambient Light Level: 2.81 LUX
+UVA Intensity: 255.00 uW/m^2
+UVB Intensity: 255.00 uW/m^2
+UV Index: 0.23
+-----End SL01 Poll cycle -----
+
+Polling SN01...
+----- Start SN01 Poll cycle -----
+GPS Time: 00:00:00
+GPS Date: 00/00/2000
+GPS Latitude: 0
+GPS longitude: 0
+-----End SN01 Poll cycle -----
+>> Waiting 5 seconds until next check...
