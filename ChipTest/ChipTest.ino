@@ -64,8 +64,11 @@ void routineCheckout(boolean initialFlag) {
   pollLux();
 
 // SN01 - call GPS poll function
-  if(initialFlag){SN01.begin();
-  Serial.println("Initial Checkout: SN01 interface begun");}
+  if(initialFlag){
+    bool gpsStatus = SN01.begin();
+    Serial.println("Initial Checkout: SN01 interface begun");
+    Serial.print("GPS interface comms established? ... (1 if true) = ");
+    Serial.println(gpsStatus); }
   delay(1000);
   Serial.println("Polling SN01...");
   pollGPS();
@@ -111,18 +114,17 @@ void pollLux() {
   Serial.print(lux);
   Serial.println(" LUX");
 
-// NOTE: chip version 2 doesn't have UVA/B sensors!
-  // // UVA
-  // float uva = SL01.getUVA();
-  // Serial.print("UVA Intensity: ");
-  // Serial.print(uva);
-  // Serial.println(" uW/m^2");
-  //
-  // // UVB
-  // float uvb = SL01.getUVB();
-  // Serial.print("UVB Intensity: ");
-  // Serial.print(uvb);
-  // Serial.println(" uW/m^2");
+  // UVA
+  float uva = SL01.getUVA();
+  Serial.print("UVA Intensity: ");
+  Serial.print(uva);
+  Serial.println(" uW/m^2");
+
+  // UVB
+  float uvb = SL01.getUVB();
+  Serial.print("UVB Intensity: ");
+  Serial.print(uvb);
+  Serial.println(" uW/m^2");
 
   // UVIndex
   float uvindex = SL01.getUVIndex();
